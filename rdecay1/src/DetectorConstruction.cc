@@ -150,6 +150,15 @@ G4LogicalVolume* logicMag = new G4LogicalVolume(solidMag,mag_material,"Magnet1")
 new G4PVPlacement(rotMag,G4ThreeVector(0.,2*R_hex+lengthZ,0.),logicMag,"Magnet1",logicWorld,false,0,checkOverlaps);
 new G4PVPlacement(rotMag,G4ThreeVector(0.,-1.5*R_hex-lengthZ,0.),logicMag,"Magnet1",logicWorld,false,0,checkOverlaps);
 
+//Target=Box
+G4Material* target_material = nist->FindOrBuildMaterial("G4_Pd"); //material
+const G4double sideX=5*cm;
+const G4double sideY=5*cm;
+const G4double sideZ=2.5*cm;
+G4Box* solidTarget = new G4Box("solidTarget",sideX,sideY,sideZ);
+G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget,target_material,"Target");
+new G4PVPlacement(0,G4ThreeVector(0.,0.,5*cm),logicTarget,"Target",logicWorld,false,0,checkOverlaps);
+
 
 
 
