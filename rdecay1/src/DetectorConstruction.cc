@@ -134,6 +134,23 @@ G4RotationMatrix* rot = new G4RotationMatrix();
 rot->rotateZ(0.*deg); //Rotation of the whole detector.
 new G4PVPlacement(rot,G4ThreeVector(0.,0.,5*cm),hex_detectorLV,"Hexagons_UnionLV",logicWorld,false,0,checkOverlaps);
 
+//Magnets
+G4Material* mag_material = nist->FindOrBuildMaterial("G4_Fe"); //material
+//Variables
+const G4double innerRad=0*cm;
+const G4double outterRad=50*cm;
+const G4double lengthZ=6*cm;
+G4double SPhi=0.;
+G4double FPhi=2*Pi;
+
+G4RotationMatrix* rotMag = new G4RotationMatrix();
+rotMag->rotateX(90.*deg); //Rotation of the whole magnet.
+G4Tubs* solidMag = new G4Tubs("Mag1",innerRad,outterRad,lengthZ,SPhi,FPhi);
+G4LogicalVolume* logicMag = new G4LogicalVolume(solidMag,mag_material,"Magnet1");
+new G4PVPlacement(rotMag,G4ThreeVector(0.,2*R_hex+lengthZ,0.),logicMag,"Magnet1",logicWorld,false,0,checkOverlaps);
+new G4PVPlacement(rotMag,G4ThreeVector(0.,-1.5*R_hex-lengthZ,0.),logicMag,"Magnet1",logicWorld,false,0,checkOverlaps);
+
+
 
 
 
