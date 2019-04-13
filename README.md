@@ -6,7 +6,7 @@ Master branch includes the simple hexagon detector.
 
 Features to be commited are:
 
-1)Array of 4 identical detectors places at a 45° angle. (Distance depends on the other features)
+1)Array of 4 identical detectors placed at a 45° angle. (Distance depends on the other features)
 
 2)Magnets
 
