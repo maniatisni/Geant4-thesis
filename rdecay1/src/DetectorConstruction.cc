@@ -100,7 +100,7 @@ G4double phiStart = Pi/6;
 G4double phiTotal = 2*Pi;
 G4int numSide = 6; //number of sides
 G4int numZPlanes = 6; //number of planes
-const G4double r_hex = 30.74*mm; //Distance from center to inner surface
+const G4double r_hex = 30.74*mm; //Distance from center to inner surface, r_hex=(sqrt(3)/2)*R_hex
 const G4double R_hex = 35.5*mm; //Half of Hexagon's Diagonal
 const G4double z_height = 10*cm; //Height of Hexagon
 const G4double rInner[] ={0, 0, 0, 0, 0, 0}; //Tangent Distance to inner surface. No thickness
@@ -108,9 +108,9 @@ const G4double rOuter[] = {r_hex, r_hex, r_hex, r_hex, r_hex, r_hex}; //Tangent 
 const G4double zPlane[] = {0., 0., 0., z_height, z_height, z_height}; //Position of Z-planes
 //Rotation Matrix -> No Rotation
 G4RotationMatrix rotm  = G4RotationMatrix();
-G4ThreeVector position1 = G4ThreeVector(-r_hex,-0.5*R_hex,0.); //1st Hexagon Position
-G4ThreeVector position2 = G4ThreeVector(r_hex,-0.5*R_hex,0.); //2nd Hexagon Position
-G4ThreeVector position3 = G4ThreeVector(0.,R_hex,0.); //3rd Hexagon Position (Upper one)
+G4ThreeVector position1 = G4ThreeVector(-r_hex,-0.5*R_hex,-z_height/2); //1st Hexagon Position
+G4ThreeVector position2 = G4ThreeVector(r_hex,-0.5*R_hex,-z_height/2); //2nd Hexagon Position
+G4ThreeVector position3 = G4ThreeVector(0.,R_hex,-z_height/2); //3rd Hexagon Position (Upper one)
 
 //Solid (all three hexagons are the same)
 G4Polyhedra* solidPoly1 = new G4Polyhedra("Polyhedron1",phiStart, phiTotal,numSide,numZPlanes,zPlane,rInner,rOuter);
@@ -129,38 +129,27 @@ hex_detector->AddNode(*solidPoly3,tr3);
 hex_detector->Voxelize();
 //Logical Volume for the structure, as if it was a normal solid.
 G4LogicalVolume* hex_detectorLV = new G4LogicalVolume(hex_detector,det_material,"Hexagons_UnionLV");
+
 //Placement of the Volume in the World.
+G4double dist=11.2*cm; //Distance from start to the "face" of the detector
+G4double dist_x=(sqrt(2)/2)*dist;
+G4double dist_z=(sqrt(2)/2)*dist;
+
 G4RotationMatrix* rot = new G4RotationMatrix();
-rot->rotateZ(0.*deg); //Rotation of the whole detector.
-new G4PVPlacement(rot,G4ThreeVector(0.,0.,5*cm),hex_detectorLV,"Hexagons_UnionLV",logicWorld,false,0,checkOverlaps);
+rot->rotateY(45.*deg); //Rotation of the whole detector.
+new G4PVPlacement(rot,G4ThreeVector(dist_x,0.,-dist_z),hex_detectorLV,"Hexagons_UnionLV",logicWorld,false,0,checkOverlaps);
 
-//Magnets
-G4Material* mag_material = nist->FindOrBuildMaterial("G4_Fe"); //material
-//Variables
-const G4double innerRad=0*cm;
-const G4double outterRad=50*cm;
-const G4double lengthZ=6*cm;
-G4double SPhi=0.;
-G4double FPhi=2*Pi;
+G4RotationMatrix* rot2 = new G4RotationMatrix();
+rot2->rotateY(315.*deg); //Rotation of the whole detector.
+new G4PVPlacement(rot2,G4ThreeVector(-dist_x,0.,-dist_z),hex_detectorLV,"Hexagons_UnionLV",logicWorld,false,0,checkOverlaps);
 
-G4RotationMatrix* rotMag = new G4RotationMatrix();
-rotMag->rotateX(90.*deg); //Rotation of the whole magnet.
-G4Tubs* solidMag = new G4Tubs("Mag1",innerRad,outterRad,lengthZ,SPhi,FPhi);
-G4LogicalVolume* logicMag = new G4LogicalVolume(solidMag,mag_material,"Magnet1");
-new G4PVPlacement(rotMag,G4ThreeVector(0.,2*R_hex+lengthZ,0.),logicMag,"Magnet1",logicWorld,false,0,checkOverlaps);
-new G4PVPlacement(rotMag,G4ThreeVector(0.,-1.5*R_hex-lengthZ,0.),logicMag,"Magnet1",logicWorld,false,0,checkOverlaps);
+G4RotationMatrix* rot3 = new G4RotationMatrix();
+rot3->rotateY(135.*deg);
+new G4PVPlacement(rot3,G4ThreeVector(dist_x,0.,dist_z),hex_detectorLV,"Hexagons_UnionLV",logicWorld,false,0,checkOverlaps);
 
-//Target=Box
-G4Material* target_material = nist->FindOrBuildMaterial("G4_Pd"); //material
-const G4double sideX=5*cm;
-const G4double sideY=5*cm;
-const G4double sideZ=2.5*cm;
-G4Box* solidTarget = new G4Box("solidTarget",sideX,sideY,sideZ);
-G4LogicalVolume* logicTarget = new G4LogicalVolume(solidTarget,target_material,"Target");
-new G4PVPlacement(0,G4ThreeVector(0.,0.,5*cm),logicTarget,"Target",logicWorld,false,0,checkOverlaps);
-
-
-
+G4RotationMatrix* rot4 = new G4RotationMatrix();
+rot4->rotateY(225.*deg);
+new G4PVPlacement(rot4,G4ThreeVector(-dist_x,0.,dist_z),hex_detectorLV,"Hexagons_UnionLV",logicWorld,false,0,checkOverlaps);
 
 
 
