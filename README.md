@@ -10,8 +10,10 @@ Features to be commited are:
 
 2)Magnets
 
-3)Eight Poles supporting the magnets
+3)A box target of the desired material
 
-4)Gaussian distribution of gun
+4)Eight Poles supporting the magnets
 
-5)Casing of detector(s).(??)
+5)Gaussian distribution of gun
+
+6)Casing of detector(s).(??)
