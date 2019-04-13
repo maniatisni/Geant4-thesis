@@ -89,7 +89,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       false,                 //no boolean operation
                       0,                     //copy number
                       checkOverlaps);        //overlaps checking
-
+//sxolio
 // Germanium.
 G4Material* det_material = nist->FindOrBuildMaterial("G4_Ge");
 
