@@ -47,9 +47,9 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
  : G4VUserPrimaryGeneratorAction(),
    fParticleGun(0)
 {
-  G4double hz3 = 11.93/2*cm;
-  G4double d = 10*cm;
-  G4double dist = -hz3-d;
+  //G4double hz3 = 11.93/2*cm;
+  //G4double d = 10*cm;
+  //G4double dist = -hz3-d;
 
   G4int n_particle = 1;
   fParticleGun  = new G4ParticleGun(n_particle);

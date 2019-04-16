@@ -1,0 +1,7 @@
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/install/strip.dir
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/edit_cache.dir
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/rdecay01.dir
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/rebuild_cache.dir
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/list_install_components.dir
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/install/local.dir
+/home/nick/Desktop/Geant4-thesis/CMakeFiles/install.dir
