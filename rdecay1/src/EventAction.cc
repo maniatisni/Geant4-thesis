@@ -86,7 +86,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
  if (fTotalEnergyDeposit>0. ) {
 
-    G4double sigma = 1.9/(200*sqrt(2*0.693)); //sigma = fwhm/(200*sqrt(2*0.693));
+    G4double sigma = 0.3/(200*sqrt(2*0.693)); //sigma = fwhm/(200*sqrt(2*0.693));
 //    G4double sigma = 0.0537715;
     //G4double sigma = 0.03;
 //    G4cout<<"sigma = "<<sigma<<G4endl;
