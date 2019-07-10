@@ -84,18 +84,30 @@ void EventAction::EndOfEventAction(const G4Event* evt)
           << " :" + fDecayChain << G4endl;
 
  G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
+ FILE *opf1 = fopen("out.dat","a");
  if (fTotalEnergyDeposit>0. ) {
+fprintf(opf1,"%d  %e \n", evt->GetEventID()+1, fTotalEnergyDeposit/MeV);
+}
+fclose(opf1);
+
+
+
 
     G4double sigma = 0.3/(200*sqrt(2*0.693)); //sigma = fwhm/(200*sqrt(2*0.693));
+
+// fTotalEnergyDeposit = G4RandGauss::shoot(fTotalEnergyDeposit,sigma);
+// analysisManager->FillH1(3,fTotalEnergyDeposit);
+
+
 //    G4double sigma = 0.0537715;
     //G4double sigma = 0.03;
 //    G4cout<<"sigma = "<<sigma<<G4endl;
 //    G4cout<<fTotalEnergyDeposit<<" "<<G4RandGauss::shoot(0.,sigma)<<" "<<G4RandGauss::shoot(fTotalEnergyDeposit,sigma)<<G4endl;
+    //
 
-    fTotalEnergyDeposit = G4RandGauss::shoot(fTotalEnergyDeposit,sigma);
-    analysisManager->FillH1(3,fTotalEnergyDeposit);
 //    G4cout<<fTotalEnergyDeposit<<G4endl;
- }
+
 
 }
 
